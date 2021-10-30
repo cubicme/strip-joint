@@ -35,6 +35,7 @@ defmodule StripJoint.Application do
       # Children for all targets except host
       # Starts a worker by calling: StripJoint.Worker.start_link(arg)
       # {StripJoint.Worker, arg},
+      {StripJoint.Blinker, name: StripJoint.Blinker}
     ]
   end
 
