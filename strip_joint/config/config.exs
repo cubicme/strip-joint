@@ -62,9 +62,9 @@ config :blinkchain, :channel0,
     }
   ]
 
-config :my_app_ui, StripJointDoorWeb.Endpoint,
+config :strip_joint_door, StripJointDoorWeb.Endpoint,
   url: [host: "nerves.local"],
-  http: [port: 80],
+  http: [port: 4000],
   cache_static_manifest: "priv/static/cache_manifest.json",
   secret_key_base: "HEY05EB1dFVSu6KykKHuS4rQPQzSHv4F7mGVB/gnDLrIu75wE/ytBXy2TaL3A6RA",
   live_view: [signing_salt: "AAAABjEyERMkxgDh"],

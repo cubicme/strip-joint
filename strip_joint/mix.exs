@@ -55,7 +55,7 @@ defmodule StripJoint.MixProject do
       {:nerves_system_osd32mp1, "~> 0.8", runtime: false, targets: :osd32mp1},
       {:nerves_system_x86_64, "~> 1.17", runtime: false, targets: :x86_64},
       {:blinkchain, "~> 1.0"},
-      {:strip_joint_door, path: "../strip_joint_door", targets: @all_targets, env: Mix.env()},
+      {:strip_joint_door, path: "../strip_joint_door", targets: @all_targets ++ [:host], env: Mix.env()},
     ]
   end
 
