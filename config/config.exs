@@ -46,8 +46,7 @@ gamma = [
 ]
 
 config :blinkchain,
-  canvas: {300, 1},
-  dma_channel: 10
+  canvas: {300, 1}
 
 config :blinkchain, :channel0,
   pin: 18,
@@ -63,6 +62,22 @@ config :blinkchain, :channel0,
     }
   ]
 
+config :my_app_ui, StripJointDoorWeb.Endpoint,
+  url: [host: "nerves.local"],
+  http: [port: 80],
+  cache_static_manifest: "priv/static/cache_manifest.json",
+  secret_key_base: "HEY05EB1dFVSu6KykKHuS4rQPQzSHv4F7mGVB/gnDLrIu75wE/ytBXy2TaL3A6RA",
+  live_view: [signing_salt: "AAAABjEyERMkxgDh"],
+  check_origin: false,
+  #  pubsub_server: Ui.PubSub,
+  # Start the server since we're running in a release instead of through `mix`
+  server: true,
+  # Nerves root filesystem is read-only, so disable the code reloader
+  code_reloader: false
+
+# Use Jason for JSON parsing in Phoenix
+config :phoenix, :json_library, Jason
+ 
 if Mix.target() == :host or Mix.target() == :"" do
   import_config "host.exs"
 else
