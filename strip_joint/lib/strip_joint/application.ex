@@ -16,6 +16,8 @@ defmodule StripJoint.Application do
         # Children for all targets
         # Starts a worker by calling: StripJoint.Worker.start_link(arg)
         # {StripJoint.Worker, arg},
+        {Phoenix.PubSub, name: StripJoint.PubSub},
+        {StripJoint.Modes, StripJoint.Modes.Ticker}
       ] ++ children(target())
 
     Supervisor.start_link(children, opts)
@@ -35,7 +37,7 @@ defmodule StripJoint.Application do
       # Children for all targets except host
       # Starts a worker by calling: StripJoint.Worker.start_link(arg)
       # {StripJoint.Worker, arg},
-      {StripJoint.Blinker, name: StripJoint.Blinker}
+      # {StripJoint.Blinker, name: StripJoint.Blinker}
     ]
   end
 

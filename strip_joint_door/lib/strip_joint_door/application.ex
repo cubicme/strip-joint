@@ -11,7 +11,6 @@ defmodule StripJointDoor.Application do
       # Start the Telemetry supervisor
       StripJointDoorWeb.Telemetry,
       # Start the PubSub system
-      {Phoenix.PubSub, name: StripJointDoor.PubSub},
       # Start the Endpoint (http/https)
       StripJointDoorWeb.Endpoint
       # Start a worker by calling: StripJointDoor.Worker.start_link(arg)

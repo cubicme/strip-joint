@@ -11,7 +11,7 @@ import Config
 config :strip_joint_door, StripJointDoorWeb.Endpoint,
   url: [host: "localhost"],
   render_errors: [view: StripJointDoorWeb.ErrorView, accepts: ~w(json), layout: false],
-  pubsub_server: StripJointDoor.PubSub,
+  pubsub_server: StripJoint.PubSub,
   live_view: [signing_salt: "kCXq6cP9"]
 
 # Configures Elixir's Logger
