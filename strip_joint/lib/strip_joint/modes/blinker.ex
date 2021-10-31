@@ -1,4 +1,4 @@
-defmodule StripJoint.Blinker do
+defmodule StripJoint.Modes.Blinker do
   use GenServer
   require Logger
 
@@ -6,18 +6,16 @@ defmodule StripJoint.Blinker do
   alias Blinkchain.Point
 
   def start_link(_opts) do
-    Logger.debug("START LINK")
     GenServer.start_link(__MODULE__, name: __MODULE__)
   end
 
   def init(_state) do
-    Process.send_after(self(), :init, 0)
+    Process.send(self(), :init)
     {:ok, 0}
   end
 
   # GenServer callbacks
   def handle_info(:init, state) do
-    Logger.debug("Init")
     Blinkchain.set_pixel(%Point{x: 0, y: 0}, %Color{r: 255, g: 0, b: 0, w: 255})
     Blinkchain.set_pixel(%Point{x: 1, y: 0}, %Color{r: 0, g: 255, b: 0, w: 255})
     Blinkchain.set_pixel(%Point{x: 2, y: 0}, %Color{r: 0, g: 0, b: 255, w: 255})
@@ -45,7 +43,7 @@ defmodule StripJoint.Blinker do
     try  do
       Blinkchain.render()
     rescue
-      e -> IO.puts "oops"
+      _ -> IO.puts "oops"
     end
 
     Process.send_after(self(), :tick, 1_000)
