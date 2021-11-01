@@ -1,6 +1,7 @@
 defmodule StripJointDoorWeb.Router do
   use StripJointDoorWeb, :router
 
+
   pipeline :api do
     plug :accepts, ["json"]
   end
@@ -8,6 +9,12 @@ defmodule StripJointDoorWeb.Router do
   scope "/", StripJointDoorWeb do
     pipe_through :api
     get "/", HomeController, :index
+    delete "/modes", ModesController, :kill
+    post "/modes", ModesController, :start
+    post "/modes/set/:index", ModesController, :set
+    delete "/modes/set/:index", ModesController, :off
+    delete "/modes/set", ModesController, :off
+    post "/modes/brightness", ModesController, :brightness
   end
 
   # Enables LiveDashboard only for development
