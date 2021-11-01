@@ -10,7 +10,7 @@ defmodule StripJoint.Modes.Blinker do
   end
 
   def init(_state) do
-    Process.send(self(), :init)
+    Process.send_after(self(), :init, 10)
     {:ok, 0}
   end
 
@@ -22,10 +22,10 @@ defmodule StripJoint.Modes.Blinker do
     try  do
       Blinkchain.render()
     rescue
-      e -> IO.puts "oops"
+      e -> Logger.warn "Blinker: oops rendering"
     end
 
-    Logger.debug("Init complete")
+    Logger.info("Blinker Init complete")
 
     Process.send_after(self(), :tick, 2_000)
     {:noreply, 0}
@@ -42,6 +42,7 @@ defmodule StripJoint.Modes.Blinker do
 
     try  do
       Blinkchain.render()
+      Logger.info "Rendered"
     rescue
       _ -> IO.puts "oops"
     end
