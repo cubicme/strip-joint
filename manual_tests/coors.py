@@ -1,4 +1,5 @@
 # import the necessary packages
+import pdb
 import requests
 from random import randrange 
 import numpy as np
@@ -79,24 +80,27 @@ def on_sorted():
     xs = group_by(no_zero, 0) # 0 means x
     ys = group_by(no_zero, 1) # 1 means y
 
-    while True:
-        for group in ys:
-            for led in group:
-                on(led[0], rcolor())
-                # on(led[0], '#aa4400ff')
+    pdb.set_trace()
+    print(list(y[0] for y in x for x in xs))
 
-        for group in ys:
-            for led in group:
-                off(led[0])
+    # while True:
+    #     for group in ys:
+    #         for led in group:
+    #             on(led[0], rcolor())
+    #             # on(led[0], '#aa4400ff')
 
-        for group in xs:
-            for led in group:
-                on(led[0], rcolor())
-                # on(led[0], '#aa4400ff')
+    #     for group in ys:
+    #         for led in group:
+    #             off(led[0])
 
-        for group in xs:
-            for led in group:
-                off(led[0])
+    #     for group in xs:
+    #         for led in group:
+    #             on(led[0], rcolor())
+    #             # on(led[0], '#aa4400ff')
+
+    #     for group in xs:
+    #         for led in group:
+    #             off(led[0])
 # print(read_coors())
 on_sorted()
 
