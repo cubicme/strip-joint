@@ -2,7 +2,8 @@ require_relative 'api'
 
 LED.delete('') # kill current mode
 LED.post('', {mode: 'manual'})
-LED.post('brightness', value: 1) # turn off all LEDs
+LED.delete('set')
+LED.post('brightness', value: "10")
 
 LED.delete('') # kill current mode
 LED.post('', {mode: 'auto'})
@@ -26,6 +27,9 @@ ys2 = ys.reduce([]) do |a,e|
   a + [(e + a.flatten).uniq]
 end
 
-pp xs2
+allx = xs.flatten
+ally = ys.flatten
+xs3 = xs2.map { |seq| allx - seq }
+ys3 = ys2.map { |seq| ally - seq }
 
-LED.post('program', sequence: xs2 + ys2, step_time: 10)
+LED.post('program', sequence: xs2 + xs3 + ys2 + ys3, step_time: 10)

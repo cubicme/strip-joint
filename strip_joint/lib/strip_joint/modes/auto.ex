@@ -4,7 +4,7 @@ defmodule StripJoint.Modes.Auto do
   require Logger
   import LED
 
-  defstruct step: 0, sequence: [], step_time: 1_000, timer: nil
+  defstruct step: 0, sequence: [], step_time: 1_000, timer: nil, current: []
 
   def start_link(_opts) do
     GenServer.start_link(__MODULE__, name: __MODULE__)
@@ -22,17 +22,15 @@ defmodule StripJoint.Modes.Auto do
   end
 
   # Timer
-  def handle_info(:step, state) do
-    LED.off()
+  def handle_info(:step, %Auto{sequence: sequence, step: step, current: current, step_time: step_time} = state) do
+    new_leds = Enum.at(sequence, rem(step, length(sequence)))
 
-    IO.puts state.step
-    state.sequence
-    |> Enum.at(rem(state.step, length(state.sequence)))
-    |> LED.set_list("#ffffffff")
+    LED.set_list(current -- new_leds, "#00000000")
+    LED.set_list(new_leds -- current, LED.rcolor())
     LED.render()
 
-    Process.send_after(self(), :step, state.step_time)
-    {:noreply, %{state | step: state.step +  1}}
+    Process.send_after(self(), :step, step_time)
+    {:noreply, %{state | step: step + 1, current: new_leds}}
   end
 
 

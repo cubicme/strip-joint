@@ -2,17 +2,20 @@ defmodule LED do
   require Logger
   alias Blinkchain.Color
 
-  def set(index, clr) do
+  def set(index, clr) when is_binary(clr) do
     Blinkchain.set_pixel({index, 0}, color(clr))
   end
 
+  def set(index, clr) do
+    Blinkchain.set_pixel({index, 0}, clr)
+  end
+
   def set_list(indices, clr) do
-    IO.inspect indices
     for i <- indices,  do: set(i, clr)
   end
 
   def fill(from, to, clr) do
-    Logger.info "#{from} #{to} #{clr}"
+    Logger.debug "#{from} #{to} #{clr}"
     Blinkchain.fill({from,0}, to, 1, color(clr))
   end
 
@@ -20,12 +23,21 @@ defmodule LED do
     fill(0, 299, "#00000000")
   end
 
+  def rcolor() do
+    {
+      :rand.uniform(256)-1,
+      :rand.uniform(256)-1,
+      :rand.uniform(256)-1,
+      255
+    }
+  end
+
   def render() do
     try  do
       Blinkchain.render()
-      Logger.info "Rendered"
+      Logger.debug "Rendered"
     rescue
-      e -> Logger.info "oops rendering"
+      e -> Logger.error "oops rendering"
     end
   end
 
