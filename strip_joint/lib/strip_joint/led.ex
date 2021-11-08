@@ -6,9 +6,18 @@ defmodule LED do
     Blinkchain.set_pixel({index, 0}, color(clr))
   end
 
+  def set_list(indices, clr) do
+    IO.inspect indices
+    for i <- indices,  do: set(i, clr)
+  end
+
   def fill(from, to, clr) do
     Logger.info "#{from} #{to} #{clr}"
     Blinkchain.fill({from,0}, to, 1, color(clr))
+  end
+
+  def off() do
+    fill(0, 299, "#00000000")
   end
 
   def render() do
@@ -27,7 +36,6 @@ defmodule LED do
       b: String.to_integer(b, 16),
       w: String.to_integer(w, 16)
     }
-    IO.inspect c
     c
   end
 
@@ -37,7 +45,6 @@ defmodule LED do
       g: String.to_integer(g, 16),
       b: String.to_integer(b, 16)
     }
-    IO.inspect c
     c
   end
 end

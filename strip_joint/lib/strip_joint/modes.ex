@@ -25,6 +25,7 @@ defmodule StripJoint.Modes do
   end
 
   def handle_info(:kill_current, {supervisor, %{major: major} = modes} = state) do
+    Logger.info("Killing the current mode")
     new_modes = case major do
       nil -> modes
       {module, pid} -> kill_major(supervisor, modes)

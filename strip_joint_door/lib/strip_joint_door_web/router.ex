@@ -12,6 +12,7 @@ defmodule StripJointDoorWeb.Router do
     delete "/modes", ModesController, :kill
     post "/modes", ModesController, :start
     post "/modes/set/:index", ModesController, :set
+    post "/modes/program", ModesController, :program
     delete "/modes/set/:index", ModesController, :off
     delete "/modes/set", ModesController, :off
     post "/modes/brightness", ModesController, :brightness

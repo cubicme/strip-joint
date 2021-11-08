@@ -26,6 +26,11 @@ defmodule StripJointDoorWeb.ModesController do
     send_resp(conn, 200, "sent")
   end
 
+  def program(conn, %{"sequence" => sequence} = params) do
+    command {:program, sequence, params["step_time"] || 1000}
+    send_resp(conn, 200, "sent")
+  end
+
   def brightness(conn, %{"value" => value}) do
     command {:brightness, String.to_integer(value)}
     send_resp(conn, 200, "sent")
