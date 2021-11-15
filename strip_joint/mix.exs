@@ -35,6 +35,7 @@ defmodule StripJoint.MixProject do
       {:shoehorn, "~> 0.7.0"},
       {:ring_logger, "~> 0.8.1"},
       {:toolshed, "~> 0.2.13"},
+      {:amnesia, "~> 0.2.8"},
 
       # Dependencies for all targets except :host
       {:nerves_runtime, "~> 0.11.3", targets: @all_targets},
@@ -54,6 +55,7 @@ defmodule StripJoint.MixProject do
       {:nerves_system_bbb, "~> 2.12", runtime: false, targets: :bbb},
       {:nerves_system_osd32mp1, "~> 0.8", runtime: false, targets: :osd32mp1},
       {:nerves_system_x86_64, "~> 1.17", runtime: false, targets: :x86_64},
+      {:circuits_spi, "~> 0.1"},
       {:blinkchain, "~> 1.0"},
 
       {:phoenix_pubsub, "~> 2.0"},

@@ -124,5 +124,7 @@ config :my_app_ui, StripJointDoorWeb.Endpoint,
   # Nerves root filesystem is read-only, so disable the code reloader
   code_reloader: false
 
+# config :mnesia, dir: '"/data/Mnesia@local"'
+
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason

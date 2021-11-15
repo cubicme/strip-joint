@@ -69,7 +69,7 @@ config :strip_joint_door, StripJointDoorWeb.Endpoint,
   secret_key_base: "HEY05EB1dFVSu6KykKHuS4rQPQzSHv4F7mGVB/gnDLrIu75wE/ytBXy2TaL3A6RA",
   live_view: [signing_salt: "AAAABjEyERMkxgDh"],
   check_origin: false,
-  #  pubsub_server: Ui.PubSub,
+  pubsub_server: StripJoint.PubSub,
   # Start the server since we're running in a release instead of through `mix`
   server: true,
   # Nerves root filesystem is read-only, so disable the code reloader
@@ -77,7 +77,10 @@ config :strip_joint_door, StripJointDoorWeb.Endpoint,
 
 # Use Jason for JSON parsing in Phoenix
 config :phoenix, :json_library, Jason
- 
+
+#config :mnesia, dir: 'Mnesia@local'
+
+
 if Mix.target() == :host or Mix.target() == :"" do
   import_config "host.exs"
 else
