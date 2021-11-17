@@ -1,4 +1,5 @@
 defmodule StripJointDoorWeb.CalibrationChannel do
+  require Logger
   use StripJointDoorWeb, :channel
 
   @impl true
@@ -14,14 +15,15 @@ defmodule StripJointDoorWeb.CalibrationChannel do
   # by sending replies to requests from the client
   @impl true
   def handle_in("start", payload, socket) do
+    IO.puts "HANDLE START"
+    Phoenix.PubSub.broadcast(StripJoint.PubSub, "modes", {:cmd, :start})
     {:noreply, socket}
   end
 
-  # It is also common to receive messages from the client and
-  # broadcast to everyone in the current topic (calibration:lobby).
-  @impl true
-  def handle_in("shout", payload, socket) do
-    broadcast socket, "shout", payload
+  def handle_in("submit", %{"x" => x, "y" => y}, socket) do
+    IO.puts "HANDLE SUBMIT"
+    Phoenix.PubSub.broadcast(StripJoint.PubSub, "modes", {:cmd, {:submit, {x, y}}} )
+
     {:noreply, socket}
   end
 

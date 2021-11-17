@@ -44,7 +44,7 @@ gamma = [
 ]
 
 config :blinkchain,
-  canvas: {300, 1},
+  canvas: {600, 1},
   dma_channel: 9
 
 
@@ -57,7 +57,7 @@ config :blinkchain, :channel0,
     %{
       type: :strip,
       origin: {0, 0},
-      count: 300,
+      count: 600,
       direction: :right
     }
   ]

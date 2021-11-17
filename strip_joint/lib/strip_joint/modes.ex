@@ -14,7 +14,7 @@ defmodule StripJoint.Modes do
   end
 
   def init(initial_mode) do
-    pubsub = PubSub.subscribe(StripJoint.PubSub, "modes")
+    PubSub.subscribe(StripJoint.PubSub, "modes")
     {:ok, supervisor} = StripJoint.ModeSupervisor.start_link(strategy: :one_for_one, name: StripJoint.ModeSupervisor)
     child = initial_mode || @default_mode
     modes = start_major_mode(supervisor, %StripJoint.Modes{major: nil, minor: []}, child)
@@ -45,6 +45,7 @@ defmodule StripJoint.Modes do
   end
 
   def handle_info({:cmd, args}, {_, %{major: {_, pid}} = modes} = state) do
+    Logger.info("passing command to the current mode")
     GenServer.call(pid, args)
     {:noreply, state}
   end

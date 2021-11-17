@@ -32,33 +32,4 @@ defmodule StripJoint.Modes.Auto do
     Process.send_after(self(), :step, step_time)
     {:noreply, %{state | step: step + 1, current: new_leds}}
   end
-
-
-  # def handle_call({:set, index, clr}, _caller, state) do
-  #   set(index, clr)
-  #   Logger.info "#{index} to #{clr}"
-  #   render()
-  #   {:reply, :ok, state}
-  # end
-
-  # def handle_call({:off}, _caller, state) do
-  #   fill(0, 244, "#00000000")
-  #   render()
-  #   {:reply, :ok, state}
-  # end
-
-  # def handle_call({:off, index}, _caller, state) do
-  #   Logger.info "off \##{index}"
-  #   Blinkchain.set_pixel({index, 0}, {0, 0, 0, 0})
-  #   render()
-  #   {:reply, :ok, state}
-  # end
-
-  # def handle_call({:brightness, value}, _caller, state) do
-  #   Logger.info "brightness #{value}"
-  #   Blinkchain.set_brightness(0, value)
-  #   render()
-  #   {:reply, :ok, state}
-  # end
-
 end

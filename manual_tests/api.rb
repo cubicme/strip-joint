@@ -3,7 +3,7 @@ require 'uri'
 require 'json'
 
 HOST = 'http://192.168.2.132:4000'
-COUNT = 300
+COUNT = 600
 
 class LED
   class << self
