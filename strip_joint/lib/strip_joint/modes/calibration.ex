@@ -12,30 +12,30 @@ defmodule StripJoint.Modes.Calibration do
     Logger.info "Calibration Init"
     off()
     render()
-    Blinkchain.set_brightness(0, 64)
-    {:ok, %{current_index: 0}}
+    Blinkchain.set_brightness(0, 5)
+    {:ok, %{current_index: 35, set: :none}}
   end
 
   def start() do
   end
 
-  def handle_call(:start, _caller, state) do
+  def handle_call({:start, set_name}, _caller, state) do
     GenServer.cast(self(), :next)
-    {:reply, :ok, state}
+    {:reply, :ok, %{state | set: set_name}}
   end
 
-  def handle_call({:submit, {x, y}}, _caller, %{current_index: index}) do
-    StripJoint.Models.LED.update(index, x, y)
+  def handle_call({:submit, {x, y}}, _caller, %{current_index: index, set: set} = state) do
+    StripJoint.Models.LED.update(index, x, y, set)
     Logger.info("Updated \##{index}, to #{x}, #{y}")
     set(index, "#00000000")
 
     next_index = index + 1
     if next_index < 600 do
       GenServer.cast(self(), :next)
-      {:reply, :ok, %{current_index: next_index}}
+      {:reply, :ok, %{state | current_index: next_index}}
     else
       GenServer.cast(self(), :finish)
-      {:reply, :ok, %{current_index: index}}
+      {:reply, :ok, %{state | current_index: index}}
     end
   end
 

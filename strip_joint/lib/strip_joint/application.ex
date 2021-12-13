@@ -9,7 +9,7 @@ defmodule StripJoint.Application do
   def start(_type, _args) do
     # See https://hexdocs.pm/elixir/Supervisor.html
     # for other strategies and supported options
-    opts = [strategy: :one_for_one, name: StripJoint.Supervisor]
+    opts = [strategy: :one_for_all, name: StripJoint.Supervisor]
 
     children =
       [
@@ -17,7 +17,7 @@ defmodule StripJoint.Application do
         # Starts a worker by calling: StripJoint.Worker.start_link(arg)
         # {StripJoint.Worker, arg},
         {Phoenix.PubSub, name: StripJoint.PubSub},
-        {StripJoint.Modes, StripJoint.Modes.Ticker}
+        {StripJoint.Modes, StripJoint.Modes.Manual}
       ] ++ children(target())
 
     Supervisor.start_link(children, opts)

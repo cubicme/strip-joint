@@ -14,9 +14,9 @@ defmodule StripJointDoorWeb.CalibrationChannel do
   # Channels can be used in a request/response fashion
   # by sending replies to requests from the client
   @impl true
-  def handle_in("start", payload, socket) do
-    IO.puts "HANDLE START"
-    Phoenix.PubSub.broadcast(StripJoint.PubSub, "modes", {:cmd, :start})
+  def handle_in("start", %{"set" => set_name}, socket) do
+    IO.puts "HANDLE START for set #{set_name}"
+    Phoenix.PubSub.broadcast(StripJoint.PubSub, "modes", {:cmd, {:start, String.to_atom(set_name)}})
     {:noreply, socket}
   end
 
